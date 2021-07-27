@@ -58,6 +58,10 @@ $config = [
             // 'document_root'            => dirname(__DIR__) . '/public',
         ]
     ],
+    'httpRouter'=>[
+        'tmpCacheNumber'=>1000,// 缓存路由数，最近一1000条(缓存到路由对象的，重启后失效，只会缓存动态路由)
+        'currentGroupPrefix'=>'/api/v1',// 将会给所有的路由设置前缀(例如：/api) !!请谨慎使用!!
+    ],
     'httpDispatcher' => [
         // Add global http middleware
     ],
