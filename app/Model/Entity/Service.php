@@ -45,6 +45,15 @@ class Service extends Model
     private $id;
 
     /**
+     * 用户id
+     *
+     * @Column()
+     *
+     * @var int
+     */
+    private $uid;
+
+    /**
      * 标题
      *
      * @Column()
@@ -99,15 +108,6 @@ class Service extends Model
     private $highPrice;
 
     /**
-     * 软删除
-     *
-     * @Column(name="soft_delete", prop="softDelete")
-     *
-     * @var int
-     */
-    private $softDelete;
-
-    /**
      * 开始时间
      *
      * @Column(name="start_time", prop="startTime")
@@ -124,6 +124,15 @@ class Service extends Model
      * @var int
      */
     private $endTime;
+
+    /**
+     * 软删除
+     *
+     * @Column(name="soft_delete", prop="softDelete")
+     *
+     * @var int
+     */
+    private $softDelete;
 
     /**
      *
@@ -152,6 +161,18 @@ class Service extends Model
     public function setId(int $id): self
     {
         $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * @param int $uid
+     *
+     * @return self
+     */
+    public function setUid(int $uid): self
+    {
+        $this->uid = $uid;
 
         return $this;
     }
@@ -229,18 +250,6 @@ class Service extends Model
     }
 
     /**
-     * @param int $softDelete
-     *
-     * @return self
-     */
-    public function setSoftDelete(int $softDelete): self
-    {
-        $this->softDelete = $softDelete;
-
-        return $this;
-    }
-
-    /**
      * @param int $startTime
      *
      * @return self
@@ -260,6 +269,18 @@ class Service extends Model
     public function setEndTime(int $endTime): self
     {
         $this->endTime = $endTime;
+
+        return $this;
+    }
+
+    /**
+     * @param int $softDelete
+     *
+     * @return self
+     */
+    public function setSoftDelete(int $softDelete): self
+    {
+        $this->softDelete = $softDelete;
 
         return $this;
     }
@@ -294,6 +315,14 @@ class Service extends Model
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    /**
+     * @return int
+     */
+    public function getUid(): ?int
+    {
+        return $this->uid;
     }
 
     /**
@@ -347,14 +376,6 @@ class Service extends Model
     /**
      * @return int
      */
-    public function getSoftDelete(): ?int
-    {
-        return $this->softDelete;
-    }
-
-    /**
-     * @return int
-     */
     public function getStartTime(): ?int
     {
         return $this->startTime;
@@ -366,6 +387,14 @@ class Service extends Model
     public function getEndTime(): ?int
     {
         return $this->endTime;
+    }
+
+    /**
+     * @return int
+     */
+    public function getSoftDelete(): ?int
+    {
+        return $this->softDelete;
     }
 
     /**

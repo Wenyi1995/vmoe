@@ -2,9 +2,9 @@
 
 namespace App\Validator;
 
+use Swoft\Validator\Annotation\Mapping\IsString;
 use Swoft\Validator\Annotation\Mapping\Min;
 use Swoft\Validator\Annotation\Mapping\NotEmpty;
-use Swoft\Validator\Annotation\Mapping\IsString;
 use Swoft\Validator\Annotation\Mapping\Validator;
 
 /**

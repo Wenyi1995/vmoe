@@ -2,10 +2,10 @@
 
 namespace App\Validator;
 
-use Swoft\Validator\Annotation\Mapping\IsInt;
 use Swoft\Validator\Annotation\Mapping\Enum;
-use Swoft\Validator\Annotation\Mapping\NotEmpty;
+use Swoft\Validator\Annotation\Mapping\IsInt;
 use Swoft\Validator\Annotation\Mapping\IsString;
+use Swoft\Validator\Annotation\Mapping\NotEmpty;
 use Swoft\Validator\Annotation\Mapping\Validator;
 
 /**
@@ -32,6 +32,7 @@ class ServiceValidator
     protected $content;
 
     /**
+     * @IsInt(name="服务类型")
      * @NotEmpty(name="服务类型")
      * @Enum(name="服务类型", values={1,2,3},message="类型只能是1，2，3")。
      * @var int
@@ -39,6 +40,7 @@ class ServiceValidator
     protected $serviceType;
 
     /**
+     * @IsInt(name="类型")
      * @NotEmpty(name="类型")
      * @Enum(name="类型", values={1,2})。
      * @var int
