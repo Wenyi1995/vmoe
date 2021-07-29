@@ -2,16 +2,18 @@
 
 namespace App\Validator;
 
-use Swoft\Validator\Annotation\Mapping\Enum;
 use Swoft\Validator\Annotation\Mapping\IsInt;
+use Swoft\Validator\Annotation\Mapping\IsFloat;
 use Swoft\Validator\Annotation\Mapping\IsString;
 use Swoft\Validator\Annotation\Mapping\NotEmpty;
+use Swoft\Validator\Annotation\Mapping\Required;
 use Swoft\Validator\Annotation\Mapping\Validator;
+use Swoft\Validator\Annotation\Mapping\Enum;
 
 /**
+ *
  * Class ServiceValidator
  *
- * 服务内容验证器
  * @since 2.0
  *
  * @Validator(name="ServiceValidator")
@@ -19,61 +21,67 @@ use Swoft\Validator\Annotation\Mapping\Validator;
 class ServiceValidator
 {
     /**
-     * @IsString(name="标题")
-     * @NotEmpty(name="标题")
+     * @IsString()
+     * @NotEmpty()
+     * @Required()
      * @var string
      */
     protected $title;
 
     /**
-     * @IsString(name="内容")
+     * @IsString()
      * @var string
      */
     protected $content;
 
     /**
-     * @IsInt(name="服务类型")
-     * @NotEmpty(name="服务类型")
-     * @Enum(name="服务类型", values={1,2,3},message="类型只能是1，2，3")。
+     * @IsInt()
+     * @NotEmpty()
+     * @Required()
+     * @Enum(values={1,2,3})。
      * @var int
      */
     protected $serviceType;
 
     /**
-     * @IsInt(name="类型")
-     * @NotEmpty(name="类型")
-     * @Enum(name="类型", values={1,2})。
+     * @IsInt()
+     * @NotEmpty()
+     * @Required()
+     * @Enum(values={1,2})。
      * @var int
      */
     protected $type;
 
     /**
-     * @IsInt(name="开始时间")
-     * @NotEmpty(name="开始时间")
-     *
+     * @IsInt()
+     * @NotEmpty()
+     * @Required()
      * @var int
      */
     protected $startTime;
 
     /**
-     * @IsInt(name="开始时间")
-     * @NotEmpty(name="开始时间")
+     * @IsInt()
+     * @NotEmpty()
+     * @Required()
      * @var int
      */
     protected $endTime;
 
 
     /**
-     * @IsInt(name="最低价格")
-     * @NotEmpty(name="最低价格")
+     * @IsFloat()
+     * @NotEmpty()
+     * @Required()
      *
      * @var int
      */
     protected $lowPrice;
 
     /**
-     * @IsInt(name="最高价格")
-     * @NotEmpty(name="最高价格")
+     * @IsFloat()
+     * @NotEmpty()
+     * @Required()
      *
      * @var int
      */

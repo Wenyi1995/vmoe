@@ -3,6 +3,7 @@
 namespace App\Validator;
 
 use Swoft\Validator\Annotation\Mapping\IsString;
+use Swoft\Validator\Annotation\Mapping\Required;
 use Swoft\Validator\Annotation\Mapping\Min;
 use Swoft\Validator\Annotation\Mapping\NotEmpty;
 use Swoft\Validator\Annotation\Mapping\Validator;
@@ -20,6 +21,7 @@ class RegisterValidator
     /**
      * @IsString()
      * @NotEmpty()
+     * @Required()
      * @var string
      */
     protected $account;
@@ -27,6 +29,7 @@ class RegisterValidator
     /**
      * @IsString()
      * @NotEmpty()
+     * @Required()
      * @Min(value=6,message="密码最小6位")
      * @var int
      */

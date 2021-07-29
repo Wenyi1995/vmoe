@@ -35,7 +35,6 @@ class ApiExceptionHandler extends AbstractHttpErrorHandler
     {
         if(env('APP_DEBUG',0)){
             $data = [
-                'code'  => $except->getCode(),
                 'error' => sprintf('(%s) %s', get_class($except), $except->getMessage()),
                 'file'  => sprintf('At %s line %d', $except->getFile(), $except->getLine()),
                 'trace' => $except->getTraceAsString(),
