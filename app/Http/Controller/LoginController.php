@@ -49,7 +49,7 @@ class LoginController
     }
 
     /**
-     * @RequestMapping("/register",method="post")
+     * @RequestMapping("register",method="post")
      * @Validate(validator="RegisterValidator")
      * @param Request $request
      * @return Response
