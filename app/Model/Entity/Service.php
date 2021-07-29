@@ -10,7 +10,7 @@ use Swoft\Db\Eloquent\Model;
 
 
 /**
- * 
+ *
  * Class Service
  *
  * @since 2.0
@@ -19,8 +19,24 @@ use Swoft\Db\Eloquent\Model;
  */
 class Service extends Model
 {
+
     /**
-     * 
+     * 自动修改创建时间
+     *
+     * @var string
+     */
+    protected const CREATED_AT = 'create_time';
+
+    /**
+     * 自动修改更新时间
+     *
+     * @var string
+     */
+    protected const UPDATED_AT = 'update_time';
+
+
+    /**
+     *
      * @Id()
      * @Column()
      *
@@ -110,7 +126,7 @@ class Service extends Model
     private $endTime;
 
     /**
-     * 
+     *
      *
      * @Column(name="create_time", prop="createTime")
      *
@@ -119,7 +135,7 @@ class Service extends Model
     private $createTime;
 
     /**
-     * 
+     *
      *
      * @Column(name="update_time", prop="updateTime")
      *
