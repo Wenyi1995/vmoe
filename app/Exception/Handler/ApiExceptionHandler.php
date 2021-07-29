@@ -33,13 +33,18 @@ class ApiExceptionHandler extends AbstractHttpErrorHandler
      */
     public function handle(Throwable $except, Response $response): Response
     {
-        $data = [
-            'code'  => $except->getCode(),
-            'error' => sprintf('(%s) %s', get_class($except), $except->getMessage()),
-            'file'  => sprintf('At %s line %d', $except->getFile(), $except->getLine()),
-            'trace' => $except->getTraceAsString(),
-        ];
+        if(env('APP_DEBUG',0)){
+            $data = [
+                'code'  => $except->getCode(),
+                'error' => sprintf('(%s) %s', get_class($except), $except->getMessage()),
+                'file'  => sprintf('At %s line %d', $except->getFile(), $except->getLine()),
+                'trace' => $except->getTraceAsString(),
+            ];
 
-        return $response->withStatus(500)->withData($data);
+            return $response->withStatus(500)->withData($data);
+        }else{
+            return $response->withStatus(500)->withContent('服务器错误');
+        }
+
     }
 }
