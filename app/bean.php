@@ -64,6 +64,9 @@ $config = [
     ],
     'httpDispatcher' => [
         // Add global http middleware
+        'afterMiddlewares' => [
+            \Swoft\Http\Server\Middleware\ValidatorMiddleware::class
+        ]
     ],
     'db' => [
         'class' => Database::class,

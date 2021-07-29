@@ -27,7 +27,7 @@ class ServiceValidator
 
     /**
      * @IsString(name="内容")
-     * @var int
+     * @var string
      */
     protected $content;
 
@@ -48,30 +48,33 @@ class ServiceValidator
     protected $type;
 
     /**
-     * @NotEmpty(name="开始时间")
      * @IsInt(name="开始时间")
+     * @NotEmpty(name="开始时间")
+     *
      * @var int
      */
     protected $startTime;
 
     /**
-     * @NotEmpty(name="结束时间")
-     * @IsInt(name="结束时间")
+     * @IsInt(name="开始时间")
+     * @NotEmpty(name="开始时间")
      * @var int
      */
     protected $endTime;
 
 
     /**
-     * @NotEmpty(name="最低价格")
      * @IsInt(name="最低价格")
+     * @NotEmpty(name="最低价格")
+     *
      * @var int
      */
     protected $lowPrice;
 
     /**
-     * @NotEmpty(name="最高价格")
      * @IsInt(name="最高价格")
+     * @NotEmpty(name="最高价格")
+     *
      * @var int
      */
     protected $highPrice;

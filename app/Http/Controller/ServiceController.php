@@ -11,6 +11,7 @@ use Swoft\Http\Message\Response;
 use Swoft\Http\Server\Annotation\Mapping\Controller;
 use Swoft\Http\Server\Annotation\Mapping\Middleware;
 use Swoft\Http\Server\Annotation\Mapping\RequestMapping;
+use Swoft\Http\Server\Annotation\Mapping\RequestMethod;
 use Swoft\Validator\Annotation\Mapping\Validate;
 
 use function context;
@@ -25,7 +26,7 @@ class ServiceController
 
     /**
      * 新增
-     * @RequestMapping("", method="post")
+     * @RequestMapping("", method=RequestMethod::POST)
      * @Validate(validator="ServiceValidator")
      * @param Request $request
      * @return Response
