@@ -26,7 +26,7 @@ class User extends Model
      *
      * @var string
      */
-    protected const CREATED_AT = 'created_time';
+    protected const CREATED_AT = 'create_time';
 
     /**
      * 自动修改更新时间

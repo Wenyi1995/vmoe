@@ -40,6 +40,6 @@ class ApiExceptionHandler extends AbstractHttpErrorHandler
             'trace' => $except->getTraceAsString(),
         ];
 
-        return $response->withData($data);
+        return $response->withStatus(500)->withData($data);
     }
 }

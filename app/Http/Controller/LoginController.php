@@ -36,12 +36,12 @@ class LoginController
         $account = $request->post('account');
         $password = $request->post('pwd');
         $uInfo = UserLogin::where(['account' => $account])
-            ->first(['account', 'salt', 'password', 'userId']);
+            ->first(['account', 'salt', 'password', 'user_id']);
         if ($uInfo) {
             $password = md5($password . $uInfo['salt']);
             if ($password == $uInfo['password']) {
-                $token = $this->loginSuccess($uInfo['userId'], $uInfo['salt']);
-                return context()->getResponse()->withData(['token' => $token, 'uid' => $uInfo['userId']]);
+                $token = $this->loginSuccess($uInfo['user_id'], $uInfo['salt']);
+                return context()->getResponse()->withData(['token' => $token, 'uid' => $uInfo['user_id']]);
             }
             return context()->getResponse()->withStatus(400)->withContent('密码错误');
         }
@@ -72,7 +72,7 @@ class LoginController
 
     private function getSalt($length)
     {
-        $str = md5(time());
+        $str = md5((string)time());
         return substr($str, rand(0, 32 - $length), $length);
     }
 
@@ -85,7 +85,9 @@ class LoginController
     private function loginSuccess($uid, $salt)
     {
         $token = md5($uid . $salt);
-        (new RedisService())->getConnect(2)->set('userLogin_', $uid, $token);
+        $redis = (new RedisService())->getConnect(2);
+        $redis->set('userLogin::'. $token,$uid );
+        $redis->expire('userLogin::'. $token, 86000);
         return $token;
     }
 }
