@@ -27,10 +27,10 @@ class LoginCheckMiddleware implements MiddlewareInterface
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        $token = $request->getHeader('USER-TOKEN');
+        $token = $token = $request->getHeaderLine("USER-TOKEN");
         if (!empty($token)) {
             $redis = (new RedisService())->getConnect(2);
-            $userInfo = $redis->get('userLogin_' . $token[0]);
+            $userInfo = $redis->get('userLogin_' . $token);
             if (!empty($userInfo)) {
                 return $handler->handle($request);
             }
