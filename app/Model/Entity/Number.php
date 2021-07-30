@@ -72,6 +72,15 @@ class Number extends Model
     private $startTime;
 
     /**
+     * 现在到了哪个号 row表id
+     *
+     * @Column(name="who_is_now", prop="whoIsNow")
+     *
+     * @var int
+     */
+    private $whoIsNow;
+
+    /**
      * 是否结束
      *
      * @Column(name="is_end", prop="isEnd")
@@ -106,15 +115,6 @@ class Number extends Model
      * @var int
      */
     private $updateTime;
-
-    /**
-     * 现在到了哪个号 row表id
-     *
-     * @Column(name="who_is_now", prop="whoIsNow")
-     *
-     * @var int
-     */
-    private $whoIsNow;
 
 
     /**
@@ -161,6 +161,18 @@ class Number extends Model
     public function setStartTime(int $startTime): self
     {
         $this->startTime = $startTime;
+
+        return $this;
+    }
+
+    /**
+     * @param int $whoIsNow
+     *
+     * @return self
+     */
+    public function setWhoIsNow(int $whoIsNow): self
+    {
+        $this->whoIsNow = $whoIsNow;
 
         return $this;
     }
@@ -214,18 +226,6 @@ class Number extends Model
     }
 
     /**
-     * @param int $whoIsNow
-     *
-     * @return self
-     */
-    public function setWhoIsNow(int $whoIsNow): self
-    {
-        $this->whoIsNow = $whoIsNow;
-
-        return $this;
-    }
-
-    /**
      * @return int
      */
     public function getId(): ?int
@@ -260,6 +260,14 @@ class Number extends Model
     /**
      * @return int
      */
+    public function getWhoIsNow(): ?int
+    {
+        return $this->whoIsNow;
+    }
+
+    /**
+     * @return int
+     */
     public function getIsEnd(): ?int
     {
         return $this->isEnd;
@@ -287,14 +295,6 @@ class Number extends Model
     public function getUpdateTime(): ?int
     {
         return $this->updateTime;
-    }
-
-    /**
-     * @return int
-     */
-    public function getWhoIsNow(): ?int
-    {
-        return $this->whoIsNow;
     }
 
 }
