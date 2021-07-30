@@ -85,7 +85,7 @@ class LoginController
     private function loginSuccess($uid, $salt)
     {
         $token = md5($uid . $salt);
-        $redis = (new RedisService())->getConnect(2);
+        $redis = RedisService::instance()->getConnect(2);
         $redis->set('userLogin::'. $token,$uid );
         $redis->expire('userLogin::'. $token, 86000);
         return $token;

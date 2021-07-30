@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Common\Traits\StaticInstance;
 use Swoft\Redis\Redis;
 
 /**
@@ -12,6 +13,7 @@ use Swoft\Redis\Redis;
 class RedisService
 {
 
+    use StaticInstance;
     /**
      * 获取redis连接
      * @param int $db
