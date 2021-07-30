@@ -22,12 +22,12 @@ use function context;
 
 /**
  * 登录注册
- * @Controller("/login/")
+ * @Controller()
  */
 class LoginController
 {
     /**
-     * @RequestMapping("login", method="post")
+     * @RequestMapping("/login", method="post")
      * @param Request $request
      * @return Response
      */
@@ -49,7 +49,7 @@ class LoginController
     }
 
     /**
-     * @RequestMapping("register",method="post")
+     * @RequestMapping("/register",method="post")
      * @Validate(validator="RegisterValidator")
      * @param Request $request
      * @return Response
