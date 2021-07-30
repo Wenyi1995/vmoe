@@ -29,11 +29,11 @@ class LoginCheckMiddleware implements MiddlewareInterface
     {
         $token = $request->getHeaderLine("USER-TOKEN");
         if (!empty($token)) {
-            $redis = (new RedisService())->getConnect(2);
+            $redis = RedisService::instance()->getConnect(2);
             $userInfo = $redis->get('userLogin::' . $token);
             if (!empty($userInfo)) {
                 if($redis->ttl('userLogin::' . $token) <= (int)(86000/2)) {
-                    (new RedisService())->getConnect(2)->expire('userLogin::' . $token, 86000);
+                    $redis->expire('userLogin::' . $token, 86000);
                 }
                 context()->set('userId',$userInfo);
                 return $handler->handle($request);
