@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controller;
 
 use App\Http\Middleware\LoginCheckMiddleware;
+use App\Model\Entity\Collect;
 use App\Model\Entity\Service;
 use Swoft\Http\Message\Request;
 use Swoft\Http\Message\Response;
@@ -87,7 +88,7 @@ class ServiceController
 
     /**
      * 获取列表
-     * @RequestMapping(route="list/p/{page}/s/{size}", method="get")
+     * @RequestMapping(route="list/{page}/{size}", method="get")
      * @param int $page
      * @param int $size
      * @return Response
@@ -116,5 +117,62 @@ class ServiceController
             return context()->getResponse()->withStatus(404)->withContent('资源不存在');
         }
     }
+
+    /**
+     * 收藏服务
+     * @RequestMapping(route="collect/{id}", method="post")
+     * @param int $id
+     * @return Response
+     */
+    public function addCollect(int $id): Response
+    {
+        $serviceInfo = Service::whereKey($id)->where('soft_delete', 0)->first(['id']);
+        if ($serviceInfo) {
+            Collect::insert([
+                'service_id' => $id,
+                'uid' => context()->get('userId')
+            ]);
+            return context()->getResponse()->withContent('success');
+        } else {
+            return context()->getResponse()->withStatus(404)->withContent('资源不存在');
+        }
+    }
+
+    /**
+     * 删除收藏
+     * @RequestMapping(route="collect/{id}", method="delete")
+     * @param int $id
+     * @return Response
+     */
+    public function delCollect(int $id): Response
+    {
+        $collectInfo = Collect::whereKey($id)->first(['id','uid']);
+        if ($collectInfo) {
+            if ($collectInfo['uid'] == context()->get('userId')) {
+                Collect::whereKey($id)->delete();
+                return context()->getResponse()->withContent('success');
+            } else {
+                return context()->getResponse()->withStatus(403)->withContent('无权操作');
+            }
+        } else {
+            return context()->getResponse()->withStatus(404)->withContent('资源不存在');
+        }
+    }
+
+    /**
+     * 获取收藏列表
+     * @RequestMapping(route="collect/{page}/{size}", method="get")
+     * @param int $page
+     * @param int $size
+     * @return Response
+     */
+    public function getCollect(int $page, int $size): Response
+    {
+        $list = Collect::where('collect.uid', context()->get('userId'))
+            ->leftJoin('service','service_id','=','service.id')
+            ->paginate($page, $size,['collect.*','service.title']);
+        return context()->getResponse()->withData($list);
+    }
+
 
 }
