@@ -109,9 +109,12 @@ CREATE TABLE `number_row`
 -- Table structure for service
 -- ----------------------------
 DROP TABLE IF EXISTS `service`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `service`
 (
     `id`           int(10) unsigned NOT NULL AUTO_INCREMENT,
+    `uid`          int(10) unsigned NOT NULL COMMENT '用户id',
     `title`        varchar(255) COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT '标题',
     `content`      text COLLATE utf8mb4_bin COMMENT '内容',
     `service_type` tinyint(1) NOT NULL COMMENT '1 妆娘 2 道具 3 摄影',
@@ -124,7 +127,7 @@ CREATE TABLE `service`
     `create_time`  int(10) unsigned NOT NULL,
     `update_time`  int(10) unsigned NOT NULL,
     PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 SET
 FOREIGN_KEY_CHECKS = 1;

@@ -12,7 +12,6 @@ use Swoft\Db\Eloquent\Model;
 /**
  *
  * Class User
- * 用户表
  *
  * @since 2.0
  *
@@ -103,12 +102,12 @@ class User extends Model
      *
      * @Column(name="soft_delete", prop="softDelete")
      *
-     * @var int|null
+     * @var int
      */
     private $softDelete;
 
     /**
-     * 创建时间
+     *
      *
      * @Column(name="create_time", prop="createTime")
      *
@@ -117,13 +116,31 @@ class User extends Model
     private $createTime;
 
     /**
-     * 更新时间
+     *
      *
      * @Column(name="update_time", prop="updateTime")
      *
      * @var int
      */
     private $updateTime;
+
+    /**
+     * 纬度
+     *
+     * @Column()
+     *
+     * @var float|null
+     */
+    private $lat;
+
+    /**
+     * 精度
+     *
+     * @Column()
+     *
+     * @var float|null
+     */
+    private $lng;
 
 
     /**
@@ -215,7 +232,7 @@ class User extends Model
      *
      * @return self
      */
-    public function setSoftDelete(?int $softDelete): self
+    public function setSoftDelete(int $softDelete): self
     {
         $this->softDelete = $softDelete;
 
@@ -242,6 +259,30 @@ class User extends Model
     public function setUpdateTime(int $updateTime): self
     {
         $this->updateTime = $updateTime;
+
+        return $this;
+    }
+
+    /**
+     * @param float|null $lat
+     *
+     * @return self
+     */
+    public function setLat(?float $lat): self
+    {
+        $this->lat = $lat;
+
+        return $this;
+    }
+
+    /**
+     * @param float|null $lng
+     *
+     * @return self
+     */
+    public function setLng(?float $lng): self
+    {
+        $this->lng = $lng;
 
         return $this;
     }
@@ -303,7 +344,7 @@ class User extends Model
     }
 
     /**
-     * @return int|null
+     * @return int
      */
     public function getSoftDelete(): ?int
     {
@@ -324,6 +365,22 @@ class User extends Model
     public function getUpdateTime(): ?int
     {
         return $this->updateTime;
+    }
+
+    /**
+     * @return float|null
+     */
+    public function getLat(): ?float
+    {
+        return $this->lat;
+    }
+
+    /**
+     * @return float|null
+     */
+    public function getLng(): ?float
+    {
+        return $this->lng;
     }
 
 }

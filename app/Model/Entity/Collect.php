@@ -19,8 +19,24 @@ use Swoft\Db\Eloquent\Model;
  */
 class Collect extends Model
 {
+
     /**
-     * 
+     * 自动修改创建时间
+     *
+     * @var string
+     */
+    protected const CREATED_AT = 'create_time';
+
+    /**
+     * 自动修改更新时间
+     *
+     * @var string
+     */
+    protected const UPDATED_AT = 'update_time';
+
+
+    /**
+     *
      * @Id()
      * @Column()
      *
@@ -47,7 +63,7 @@ class Collect extends Model
     private $serviceId;
 
     /**
-     * 
+     *
      *
      * @Column(name="create_time", prop="createTime")
      *
@@ -56,7 +72,7 @@ class Collect extends Model
     private $createTime;
 
     /**
-     * 
+     *
      *
      * @Column(name="update_time", prop="updateTime")
      *
