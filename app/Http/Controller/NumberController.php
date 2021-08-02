@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controller;
 
 use App\Model\Entity\Number;
+use App\Model\Entity\NumberRow;
 use Swoft\Http\Message\Request;
 use Swoft\Http\Message\Response;
 use Swoft\Http\Server\Annotation\Mapping\Controller;
@@ -131,22 +132,63 @@ class NumberController
      * 叫号
      * @RequestMapping(route="/next/{id}", method=RequestMethod::PATCH)
      * @param int $id
-     * @return string
+     * @return Response
      */
-    public function next(int $id): string
+    public function next(int $id): Response
     {
-        return 'success';
+        $numberInfo = Number::whereKey($id)->where(['soft_delete' => 0, 'is_end' => 0])->first(['who_is_now']);
+        if ($numberInfo) {
+            $rowInfo = NumberRow::where([
+                'id' => ['>', $numberInfo['who_is_now']],
+                'number_id' => $id
+            ])->orderBy('id')->first();
+            if ($rowInfo) {
+                $numberInfo->setWhoIsNow($rowInfo['id']);
+                $numberInfo->save();
+
+                $rowInfo->setIsCalled(1);
+                $rowInfo->setLastCallTime(time());
+                $rowInfo->save();
+                //todo 给用户发im消息
+                return context()->getResponse()->withData($rowInfo);
+            } else {
+                return context()->getResponse()->withStatus(404)->withContent('已经没有下一个人了');
+            }
+        } else {
+            return context()->getResponse()->withStatus(404)->withContent('资源不存在');
+        }
     }
 
     /**
      * 加入排号
      * @RequestMapping(route="/join/{id}", method=RequestMethod::POST)
+     * @param Request $request
      * @param int $id
-     * @return string
+     * @return Response
      */
-    public function join(int $id): string
+    public function join(Request $request, int $id): Response
     {
-        return 'success';
+        $numberInfo = Number::whereKey($id)->where(
+            ['soft_delete' => 0, 'is_end' => 0]
+        )->first(['id']);
+        if ($numberInfo) {
+            $rowInfo = NumberRow::where([
+                'number_id' => $id,
+                'uid' => context()->get('userId')
+            ])->first(['id']);
+            if ($rowInfo) {
+                return context()->getResponse()->withStatus(403)->withContent('已经排了');
+            } else {
+                $id = NumberRow::insertGetId([
+                    'number_id' => $id,
+                    'uid' => context()->get('userId'),
+                    'phone' => $request->post('phone')
+                ]);
+                return context()->getResponse()->withData(['row_id' => $id]);
+            }
+        } else {
+            return context()->getResponse()->withStatus(404)->withContent('资源不存在');
+        }
     }
 
 }
