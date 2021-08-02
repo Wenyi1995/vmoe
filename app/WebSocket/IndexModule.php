@@ -18,14 +18,13 @@ use Swoft\WebSocket\Server\Annotation\Mapping\OnOpen;
 use Swoft\WebSocket\Server\Annotation\Mapping\OnClose;
 use Swoft\WebSocket\Server\Annotation\Mapping\OnHandshake;
 use Swoft\WebSocket\Server\MessageParser\JsonParser;
-use Swoole\WebSocket\Frame;
 use Swoole\WebSocket\Server;
 
 /**
  * Class IndexModule - This is an module for handle websocket
  *
  * @WsModule(
- *    "/index"
+ *     path="/index",
  *     messageParser=JsonParser::class,
  *     controllers={}
  *  )
@@ -44,10 +43,6 @@ class IndexModule
      * @param Request $request
      * @param Response $response
      * @return array
-     * [
-     *  self::HANDSHAKE_OK,
-     *  $response
-     * ]
      */
     public function checkHandshake(Request $request, Response $response): array
     {
