@@ -63,6 +63,15 @@ class NumberRow extends Model
     private $numberId;
 
     /**
+     * 顺序
+     *
+     * @Column()
+     *
+     * @var int
+     */
+    private $row;
+
+    /**
      * 手机号 或者其他能够及时联络方式
      *
      * @Column()
@@ -140,6 +149,18 @@ class NumberRow extends Model
     public function setNumberId(int $numberId): self
     {
         $this->numberId = $numberId;
+
+        return $this;
+    }
+
+    /**
+     * @param int $row
+     *
+     * @return self
+     */
+    public function setRow(int $row): self
+    {
+        $this->row = $row;
 
         return $this;
     }
@@ -226,6 +247,14 @@ class NumberRow extends Model
     public function getNumberId(): ?int
     {
         return $this->numberId;
+    }
+
+    /**
+     * @return int
+     */
+    public function getRow(): ?int
+    {
+        return $this->row;
     }
 
     /**
