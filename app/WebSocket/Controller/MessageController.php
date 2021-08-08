@@ -10,22 +10,34 @@
 
 namespace App\WebSocket\Controller;
 
+use App\Service\RedisService;
 use Swoft\WebSocket\Server\Annotation\Mapping\WsController;
 use Swoft\WebSocket\Server\Annotation\Mapping\MessageMapping;
+use Swoft\WebSocket\Server\Message\Message;
 
 /**
  * Class MessageController - This is an controller for handle websocket message request
  *
  * @WsController("message")
  */
-class MessageController{
+class MessageController
+{
     /**
-     * this is a example websocket message request handle method.
      * @MessageMapping("index")
-     * @return array
+     * @param Message $msg
+     * @return string[]
      */
-    public function index(): array
+    // inject Message object
+    public function index(Message $msg): array
     {
-        return ['item0', 'item1'];
+        $data = $msg->getData();
+        $toUid = $msg->getExt();
+        $toFd = RedisService::instance()->getConnect(2)->hGet('User2Fd', $toUid['uid']);
+        if($toFd) {
+            server()->sendTo((int)$toFd, $data);
+            return ['success'];
+        }else{
+            return ['error'];
+        }
     }
 }
