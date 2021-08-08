@@ -80,14 +80,14 @@ class LoginController
      * 登录成功操作
      * @param $uid
      * @param $salt
-     * @return bool
+     * @return string
      */
     private function loginSuccess($uid, $salt)
     {
-        $token = md5($uid . $salt);
+        $token = md5($uid . $salt . (string)time());
         $redis = RedisService::instance()->getConnect(2);
-        $redis->set('userLogin::'. $token,$uid );
-        $redis->expire('userLogin::'. $token, 86000);
+        $redis->set('userLogin::' . $token, $uid);
+        $redis->expire('userLogin::' . $token, 86000);
         return $token;
     }
 }
