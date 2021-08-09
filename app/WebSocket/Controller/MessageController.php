@@ -11,6 +11,7 @@
 namespace App\WebSocket\Controller;
 
 use App\Service\RedisService;
+use App\Service\WebSocketToolService;
 use Swoft\WebSocket\Server\Annotation\Mapping\WsController;
 use Swoft\WebSocket\Server\Annotation\Mapping\MessageMapping;
 use Swoft\WebSocket\Server\Message\Message;
@@ -30,14 +31,14 @@ class MessageController
     // inject Message object
     public function index(Message $msg): array
     {
-        $data = $msg->getData();
+        $content = $msg->getData();
         $toUid = $msg->getExt();
         $toFd = RedisService::instance()->getConnect(2)->hGet('User2Fd', $toUid['uid']);
         if($toFd) {
-            server()->sendTo((int)$toFd, $data);
+            WebSocketToolService::instance()->sender((int)$toFd,$content);
             return ['success'];
         }else{
-            return ['error'];
+            return [false,'用户不在线'];
         }
     }
 }

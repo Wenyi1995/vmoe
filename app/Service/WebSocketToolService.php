@@ -27,4 +27,32 @@ class WebSocketToolService
         $redis->hDel('User2Fd', $uid);
         return true;
     }
+
+    /**
+     * 获取发送消息封装
+     * @param string $content
+     * @param int $type
+     * @return string
+     */
+    public function sendData(string $content, int $type = 0): string
+    {
+        $typeArray = ['message'];
+        $method = 'message';
+        if (isset($typeArray[$type])) {
+            $method = $typeArray[$type];
+        }
+
+        return json_encode(['method' => $method, 'content' => $content]);
+    }
+
+    /**
+     * 获取发送消息封装
+     * @param int $fd
+     * @param string $content
+     * @return bool
+     */
+    public function sender(int $fd, string $content): bool
+    {
+        return server()->sendTo($fd, $this->sendData($content));
+    }
 }
