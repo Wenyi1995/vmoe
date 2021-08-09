@@ -33,13 +33,15 @@ class MessageController
     {
         $content = $msg->getData();
         $toUid = $msg->getExt();
-        $toFd = RedisService::instance()->getConnect(2)->hGet('User2Fd', $toUid['uid']);
-        if($toFd) {
+        $redis = RedisService::instance()->getConnect(2);
+        $toFd = $redis->hGet('User2Fd', $toUid['uid']);
+        if ($toFd) {
             $fd = context()->getRequest()->getFd();
-            WebSocketToolService::instance()->sender((int)$toFd,$content,['fromUid'=>$fd]);
-            return ['success'];
-        }else{
-            return [false,'用户不在线'];
+            $fromUid = $redis->hGet('Fd2User', (string)$fd);
+            WebSocketToolService::instance()->sender((int)$toFd, $content, ['fromUid' => $fromUid]);
+            return ['status'=>'success'];
+        } else {
+            return ['status'=>'failed','msg'=>'用户不在线'];
         }
     }
 }
