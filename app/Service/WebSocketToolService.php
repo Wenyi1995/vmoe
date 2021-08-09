@@ -31,10 +31,11 @@ class WebSocketToolService
     /**
      * 获取发送消息封装
      * @param string $content
+     * @param array $ext
      * @param int $type
      * @return string
      */
-    public function sendData(string $content, int $type = 0): string
+    public function sendData(string $content, array $ext = [], int $type = 0): string
     {
         $typeArray = ['message'];
         $method = 'message';
@@ -42,17 +43,17 @@ class WebSocketToolService
             $method = $typeArray[$type];
         }
 
-        return json_encode(['method' => $method, 'content' => $content]);
+        return json_encode(['method' => $method, 'content' => $content, 'ext' => $ext]);
     }
 
     /**
-     * 获取发送消息封装
      * @param int $fd
      * @param string $content
+     * @param array $ext
      * @return bool
      */
-    public function sender(int $fd, string $content): bool
+    public function sender(int $fd, string $content, array $ext = []): bool
     {
-        return server()->sendTo($fd, $this->sendData($content));
+        return server()->sendTo($fd, $this->sendData($content, $ext));
     }
 }

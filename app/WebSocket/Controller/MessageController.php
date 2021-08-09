@@ -35,7 +35,8 @@ class MessageController
         $toUid = $msg->getExt();
         $toFd = RedisService::instance()->getConnect(2)->hGet('User2Fd', $toUid['uid']);
         if($toFd) {
-            WebSocketToolService::instance()->sender((int)$toFd,$content);
+            $fd = context()->getRequest()->getFd();
+            WebSocketToolService::instance()->sender((int)$toFd,$content,['fromUid'=>$fd]);
             return ['success'];
         }else{
             return [false,'用户不在线'];
