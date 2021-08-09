@@ -11,6 +11,7 @@
 namespace App\WebSocket;
 
 use App\Service\RedisService;
+use App\Service\WebSocketToolService;
 use Swoft\Http\Message\Request;
 use Swoft\Http\Message\Response;
 use Swoft\WebSocket\Server\Annotation\Mapping\WsModule;
@@ -82,6 +83,6 @@ class IndexModule
      */
     public function onClose(Server $server, int $fd)
     {
-        // do something. eg. record log
+        WebSocketToolService::instance()->socketClose($fd);
     }
 }
