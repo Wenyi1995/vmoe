@@ -12,6 +12,7 @@ namespace App\WebSocket;
 
 use App\Service\RedisService;
 use App\Service\WebSocketToolService;
+use App\WebSocket\Controller\MessageController;
 use Swoft\Http\Message\Request;
 use Swoft\Http\Message\Response;
 use Swoft\WebSocket\Server\Annotation\Mapping\WsModule;
@@ -27,7 +28,7 @@ use Swoole\WebSocket\Server;
  * @WsModule(
  *     path="/index",
  *     messageParser=JsonParser::class,
- *     controllers={}
+ *     controllers={MessageController::class,}
  *  )
  */
 class IndexModule

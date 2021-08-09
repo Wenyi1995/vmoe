@@ -93,7 +93,6 @@ $config = [
             SwooleEvent::FINISH => bean(FinishListener::class)
         ],
          'debug'   => env('SWOFT_DEBUG', 0),
-        'enable_http' => env('WS_ENABLE_HTTP', true),
         /* @see WebSocketServer::$setting */
         'setting' => [
             'task_worker_num' => 6,
