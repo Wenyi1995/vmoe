@@ -64,6 +64,9 @@ $config = [
     ],
     'httpDispatcher' => [
         // Add global http middleware
+        'middlewares'=>[
+            \App\Http\Middleware\CorsMiddleware::class
+        ],
         'afterMiddlewares' => [
             \Swoft\Http\Server\Middleware\ValidatorMiddleware::class
         ]
