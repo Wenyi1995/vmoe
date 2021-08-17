@@ -54,8 +54,8 @@ $config = [
             'task_enable_coroutine' => true,
             'worker_num' => 2,
             // static handle
-            // 'enable_static_handler'    => true,
-            // 'document_root'            => dirname(__DIR__) . '/public',
+             'enable_static_handler'    => true,
+             'document_root'            => alias('@base/public'),
         ]
     ],
     'httpRouter'=>[
@@ -64,12 +64,12 @@ $config = [
     ],
     'httpDispatcher' => [
         // Add global http middleware
-        'middlewares'=>[
-            \App\Http\Middleware\CorsMiddleware::class
-        ],
         'afterMiddlewares' => [
             \Swoft\Http\Server\Middleware\ValidatorMiddleware::class
         ]
+    ],
+    'view'=>[
+        'viewPath'=>'@resource/views/'
     ],
     'db' => [
         'class' => Database::class,
