@@ -44,7 +44,7 @@
       $.ajax({
         url: urlIndex + '/login', type: 'post', data: data.field, success(result) {
           localStorage.setItem('user-token', result.token);
-          window.location = urlIndex + '/home/index'
+          window.location = urlIndex + '/index'
         }, error(e) {
           layer.msg(e.responseText)
         }
@@ -55,7 +55,7 @@
       $.ajax({
         url: urlIndex + '/register', type: 'post', data: data.field, success(result) {
           localStorage.setItem('user-token', result.token);
-          window.location =  urlIndex + '/homeindex'
+          window.location =  urlIndex + '/index'
         }, error(e) {
           layer.msg(e.responseText)
         }
