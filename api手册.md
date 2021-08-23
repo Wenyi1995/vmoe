@@ -155,15 +155,29 @@
     - `startTime` 开始时间戳
     
 
-#### 获取排号详情
+#### 获取我的排号列表
 
-  - get  /number/{id}
+  - get  /number/mylist/{page}/{size}
   - 返回
-    - `uid`  创建人id
-    - `title`  排号名称
-    - `who_is_now`  当前rowId
-    - `is_end`  是否结束
-    - `startTime` 开始时间戳
+    - `id` 
+    - `uid` 创建者uid
+    - `title`  标题
+    - `startTime`  开始时间戳
+    - `whoIsNow`  当前row_id
+    - `isEnd`  是否结束 1 是 0 否
+
+#### 获取我加入的排号列表
+
+  - get  /number/mylist/{page}/{size}
+  - 返回
+    - `id`
+    - `uid` 创建者id
+    - `title` 标题
+    - `start_time` 开始时间戳
+    - `who_is_now` 当前row_id 
+    - `is_end` 是否结束 1 是 0 否 
+    - `join_time`加入时间戳
+    - `is_called` 是否被叫过号
     
 
 #### 获取排号详情

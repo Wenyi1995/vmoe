@@ -51,6 +51,36 @@ class NumberController
     }
 
     /**
+     * 获取我创建的列表
+     * @RequestMapping(route="mylist/{page}/{size}", method=RequestMethod::GET)
+     * @param int $page
+     * @param int $size
+     * @return array
+     */
+    public function getMyList(int $page = 1, int $size = 10): array
+    {
+        return Number::where(['uid' => context()->get('userId'),'softDelete'=>0])
+            ->orderByDesc('id')
+            ->paginate($page, $size);
+    }
+
+    /**
+     * 获取我加入的列表
+     * @RequestMapping(route="joinlist/{page}/{size}", method=RequestMethod::GET)
+     * @param int $page
+     * @param int $size
+     * @return array
+     */
+    public function getWhichIInList(int $page = 1, int $size = 10): array
+    {
+        return NumberRow::where(['number_row.uid' => context()->get('userId'),'number.softDelete'=>0])
+            ->leftJoin('number', 'number.id', '=', 'number_row.number_id')
+            ->select('number.*', 'is_called','number_row.create_time as join_time')
+            ->orderByDesc('number_row.create_time')
+            ->paginate($page, $size);
+    }
+
+    /**
      * 获取详情
      * @RequestMapping(route="{id}", method=RequestMethod::GET)
      * @param int $id
@@ -94,7 +124,7 @@ class NumberController
      */
     public function del(int $id): Response
     {
-        $numberInfo = Number::whereKey($id)->where('soft_delete', 0)->first(['id','uid']);
+        $numberInfo = Number::whereKey($id)->where('soft_delete', 0)->first(['id', 'uid']);
         if ($numberInfo) {
             if ($numberInfo['uid'] == context()->get('userId')) {
                 $numberInfo->setSoftDelete(1)->save();
@@ -115,7 +145,7 @@ class NumberController
      */
     public function end(int $id): Response
     {
-        $numberInfo = Number::whereKey($id)->where('soft_delete', 0)->first(['id','uid']);
+        $numberInfo = Number::whereKey($id)->where('soft_delete', 0)->first(['id', 'uid']);
         if ($numberInfo) {
             if ($numberInfo['uid'] == context()->get('userId')) {
                 $numberInfo->setIsEnd(1)->save();
@@ -136,10 +166,10 @@ class NumberController
      */
     public function next(int $id): Response
     {
-        $numberInfo = Number::whereKey($id)->where(['soft_delete' => 0, 'is_end' => 0])->first(['id','who_is_now']);
+        $numberInfo = Number::whereKey($id)->where(['soft_delete' => 0, 'is_end' => 0])->first(['id', 'who_is_now']);
         if ($numberInfo) {
             $rowInfo = NumberRow::where(
-                'id','>',$numberInfo['who_is_now']
+                'id', '>', $numberInfo['who_is_now']
             )->where([
                 'number_id' => $id
             ])->orderBy('id')->first();
@@ -183,8 +213,8 @@ class NumberController
                 $id = NumberRow::insertGetId([
                     'number_id' => $id,
                     'uid' => context()->get('userId'),
-                    'is_called'=>0,
-                    'last_call_time'=>0,
+                    'is_called' => 0,
+                    'last_call_time' => 0,
                     'phone' => $request->post('phone')
                 ]);
                 return context()->getResponse()->withData(['row_id' => $id]);
