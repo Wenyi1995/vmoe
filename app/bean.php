@@ -64,6 +64,10 @@ $config = [
     ],
     'httpDispatcher' => [
         // Add global http middleware
+        'middlewares'=>[
+            \App\Http\Middleware\CorsMiddleware::class
+        ],
+
         'afterMiddlewares' => [
             \Swoft\Http\Server\Middleware\ValidatorMiddleware::class
         ]
@@ -124,6 +128,7 @@ for ($i = 0; $i <= 15; $i++) {
         'class' => RedisDb::class,
         'host' => env('REDIS_HOST','127.0.0.1'),
         'port' => env('REDIS_PORT',6379),
+        'auth' => env('REDIS_AUTH'),
         'database' => $i
     ];
     $config['redis_' . $i . '.pool'] = [
