@@ -190,6 +190,15 @@
     - `who_is_now`  当前rowId
     - `is_end`  是否结束
     - `startTime` 开始时间戳
+    - `joinList`  加入排号列表
+
+       - `id` rowId
+       - `uid` rowUid
+       - `isCalled` 是否已经叫号
+       - `lastCallTime` 上次叫号时间
+       - `phone` 联系方式
+            
+        
     
 #### 删除排号
 

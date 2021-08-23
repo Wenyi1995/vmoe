@@ -88,7 +88,17 @@ class NumberController
      */
     public function get(int $id): array
     {
-        return Number::whereKey($id)->first()->toArray();
+        $item = Number::whereKey($id)->first();
+        if($item->exists()){
+            $item = $item->toArray();
+            $item['joinList'] = NumberRow::where(['number_id'=>$id])
+                ->select('id','uid','is_called','last_call_time','phone')
+                ->orderByDesc('id')
+                ->get()->toArray();
+        }else{
+            $item = [];
+        }
+        return $item;
     }
 
     /**
