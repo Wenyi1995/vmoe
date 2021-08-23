@@ -7,7 +7,7 @@
 
 - 接口请求前缀 `api/v1`
 
-  eg. http://www.baidu.com:18306/api/v1 .......
+  eg. http://lampta.com/api/v1/login
 
 - 除了登录 和 注册 接口，其他所有接口需要在 header 中传入 `USER-TOKEN` 
 
@@ -90,7 +90,6 @@
 
     - `id`   服务id
     - `uid` 创建人uid
-
     - `title`  标题
     - `content` 内容
     - `serviceType` 服务类型 枚举 1 妆娘  2 道具  3 摄影
