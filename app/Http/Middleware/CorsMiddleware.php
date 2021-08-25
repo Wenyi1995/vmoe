@@ -6,7 +6,13 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Swoft\Http\Server\Contract\MiddlewareInterface;
+use Swoft\Bean\Annotation\Mapping\Bean;
 
+/**
+ * Class CorsMiddleware
+ * 跨域请求
+ * @Bean()
+ */
 class CorsMiddleware implements MiddlewareInterface
 {
 
