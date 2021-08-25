@@ -35,11 +35,9 @@ class CorsMiddleware implements MiddlewareInterface
 
     private function configResponse(ResponseInterface $response)
     {
-        {
-            return $response
-                ->withHeader('Access-Control-Allow-Origin', '*')
-                ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization, USER_TOKEN')
-                ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
-        }
+        return $response->withHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:8080')
+            ->withHeader('Access-Control-Allow-Credentials', 'true')
+            ->withHeader('Access-Control-Allow-Headers', 'USER-TOKEN')
+            ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
     }
 }
