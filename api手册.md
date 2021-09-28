@@ -107,7 +107,7 @@
 
 #### 获取服务列表
 
-  - get  /service/{page}/{size}
+  - get  /service/list/{page}/{size}
   - 返回
     - `id`   服务id
     - `uid` 创建人uid
