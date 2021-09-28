@@ -1,7 +1,7 @@
 # 接口手册
 ## 接入方式
 
-- 访问地址：lampta.com
+- 访问地址：lampta.com ｜ 本地 192.168.50.165
 
 - 端口：http请求 -  `18306`  ws - `18308`
 
@@ -129,7 +129,7 @@
 
 #### 获取我的收藏列表
 
-  - get  /service/{page}/{size}
+  - get  /service/collect/{page}/{size}
   - 返回
     - `title` 服务标题
     - `create_time` 创建时间
@@ -154,7 +154,7 @@
     - `startTime` 开始时间戳
     
 
-#### 获取我的排号列表
+#### 获取我创建的排号列表
 
   - get  /number/mylist/{page}/{size}
   - 返回
@@ -167,7 +167,7 @@
 
 #### 获取我加入的排号列表
 
-  - get  /number/mylist/{page}/{size}
+  - get  /number/joinlist/{page}/{size}
   - 返回
     - `id`
     - `uid` 创建者id
@@ -196,8 +196,8 @@
        - `isCalled` 是否已经叫号
        - `lastCallTime` 上次叫号时间
        - `phone` 联系方式
-            
-        
+         
+       
     
 #### 删除排号
 
