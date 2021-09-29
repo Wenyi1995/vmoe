@@ -118,6 +118,20 @@
     - `endTime` 结束时间 时间戳
     - `lowPrice ` 最低价  浮点数
     - `highPrice ` 最高价  浮点数
+    
+#### 获取我发布的服务列表
+
+  - get  /service/mylist/{page}/{size}
+  - 返回
+    - `id`   服务id
+    - `uid` 创建人uid
+    - `title`  标题
+    - `serviceType` 服务类型 枚举 1 妆娘  2 道具  3 摄影
+    - `type` 发布类型 枚举 1 提供 2 需求
+    - `startTime` 开始时间 时间戳
+    - `endTime` 结束时间 时间戳
+    - `lowPrice ` 最低价  浮点数
+    - `highPrice ` 最高价  浮点数
 
 #### 收藏服务
 

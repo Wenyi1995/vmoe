@@ -101,6 +101,21 @@ class ServiceController
         return context()->getResponse()->withData($list);
     }
 
+    /**
+     * 获取我发布的列表
+     * @RequestMapping(route="mylist/{page}/{size}", method="get")
+     * @param int $page
+     * @param int $size
+     * @return Response
+     */
+    public function getMyList(int $page = 1, int $size = 10): Response
+    {
+        $list = Service::where(['soft_delete'=> 0,'uid'=>context()->get('userId')])
+            ->paginate($page, $size,
+                ['id', 'uid', 'title', 'service_type', 'type', 'start_time', 'end_time', 'low_price', 'high_price']);
+        return context()->getResponse()->withData($list);
+    }
+
 
     /**
      * 获取详情
