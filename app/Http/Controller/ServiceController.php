@@ -66,7 +66,6 @@ class ServiceController
     /**
      * 删除
      * @RequestMapping(route="{id}", method="DELETE")
-     * @Validate(validator="ServiceValidator")
      * @param int $id
      * @return Response
      */
