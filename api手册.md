@@ -148,6 +148,12 @@
     - `title` 服务标题
     - `create_time` 创建时间
 
+#### 查看是否收藏
+
+  - get  /service/is_collect/{service_id}
+  - 返回
+    - `is_collect` 是否收藏
+
 
 
 ### 排号相关
