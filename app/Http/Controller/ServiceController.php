@@ -110,7 +110,7 @@ class ServiceController
      */
     public function getMyList(int $page = 1, int $size = 10): Response
     {
-        $list = Service::where(['soft_delete'=> 0,'uid'=>context()->get('userId')])
+        $list = Service::where(['soft_delete' => 0, 'uid' => context()->get('userId')])
             ->paginate($page, $size,
                 ['id', 'uid', 'title', 'service_type', 'type', 'start_time', 'end_time', 'low_price', 'high_price']);
         return context()->getResponse()->withData($list);
@@ -155,20 +155,18 @@ class ServiceController
 
     /**
      * 删除收藏
-     * @RequestMapping(route="collect/{id}", method="delete")
-     * @param int $id
+     * @RequestMapping(route="collect/$service_id}", method="delete")
+     * @param int $service_id
      * @return Response
      */
-    public function delCollect(int $id): Response
+    public function delCollect(int $service_id): Response
     {
-        $collectInfo = Collect::whereKey($id)->first(['id','uid']);
+        $uid = context()->get('userId');
+        $where = ['service_id' => $service_id, 'uid' => $uid];
+        $collectInfo = Collect::where($where)->first(['id', 'uid']);
         if ($collectInfo) {
-            if ($collectInfo['uid'] == context()->get('userId')) {
-                Collect::whereKey($id)->delete();
-                return context()->getResponse()->withContent('success');
-            } else {
-                return context()->getResponse()->withStatus(403)->withContent('无权操作');
-            }
+            Collect::where($where)->delete();
+            return context()->getResponse()->withContent('success');
         } else {
             return context()->getResponse()->withStatus(404)->withContent('资源不存在');
         }
@@ -184,9 +182,22 @@ class ServiceController
     public function getCollect(int $page, int $size): Response
     {
         $list = Collect::where('collect.uid', context()->get('userId'))
-            ->leftJoin('service','service_id','=','service.id')
-            ->paginate($page, $size,['collect.*','service.title']);
+            ->leftJoin('service', 'service_id', '=', 'service.id')
+            ->paginate($page, $size, ['collect.*', 'service.title']);
         return context()->getResponse()->withData($list);
+    }
+
+    /**
+     * 判断是否收藏
+     * @RequestMapping(route="is_collect/{service_id}", method="get")
+     * @param int $service_id
+     * @return Response
+     */
+    public function getIsCollect(int $service_id): Response
+    {
+        $uid = context()->get('userId');
+        $e = Collect::where(['service_id' => $service_id, 'uid' => $uid])->exists();
+        return context()->getResponse()->withData(['is_collect'=>$e]);
     }
 
 
