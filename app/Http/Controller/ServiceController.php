@@ -71,7 +71,7 @@ class ServiceController
      */
     public function delService(int $id): Response
     {
-        $serviceInfo = Service::whereKey($id)->where('soft_delete', 0)->first(['uid']);
+        $serviceInfo = Service::whereKey($id)->where('soft_delete', 0)->first(['id','uid']);
         if ($serviceInfo) {
             if ($serviceInfo['uid'] == context()->get('userId')) {
                 $serviceInfo->setSoftDelete(1)->save();
