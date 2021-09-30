@@ -65,7 +65,7 @@ class ServiceController
 
     /**
      * 删除
-     * @RequestMapping(route="{id}", method="delete")
+     * @RequestMapping(route="{id}", method="DELETE")
      * @Validate(validator="ServiceValidator")
      * @param int $id
      * @return Response
@@ -155,7 +155,7 @@ class ServiceController
 
     /**
      * 删除收藏
-     * @RequestMapping(route="collect/$service_id}", method="delete")
+     * @RequestMapping(route="collect/{service_id}", method="DELETE")
      * @param int $service_id
      * @return Response
      */

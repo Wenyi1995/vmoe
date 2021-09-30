@@ -128,7 +128,7 @@ class NumberController
     /**
      *
      * 删除
-     * @RequestMapping(route="{id}", method=RequestMethod::DELETE)
+     * @RequestMapping(route="{id}", method="DELETE")
      * @param int $id
      * @return Response
      */
