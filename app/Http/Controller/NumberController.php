@@ -173,7 +173,7 @@ class NumberController
 
     /**
      * 叫号
-     * @RequestMapping(route="/next/{id}", method=RequestMethod::PATCH)
+     * @RequestMapping(route="next/{id}", method=RequestMethod::PATCH)
      * @param int $id
      * @return Response
      */
@@ -205,7 +205,7 @@ class NumberController
 
     /**
      * 加入排号
-     * @RequestMapping(route="/join/{id}", method=RequestMethod::POST)
+     * @RequestMapping(route="join/{id}", method=RequestMethod::POST)
      * @param Request $request
      * @param int $id
      * @return Response

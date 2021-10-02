@@ -225,7 +225,7 @@
 
 #### 加入排号
 
-  - patch /number/join/{number_id}
+  - post /number/join/{number_id}
   - 参数
     - `phone` 联系方式 不一定是手机号
 
