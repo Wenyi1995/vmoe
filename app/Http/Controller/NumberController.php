@@ -43,7 +43,8 @@ class NumberController
                 [
                     'uid' => $uid,
                     'soft_delete' => 0,
-                    'is_end' => 0
+                    'is_end' => 0,
+                    'who_is_now'=>0
                 ]
             ));
             return context()->getResponse()->withContent('success');
@@ -59,7 +60,7 @@ class NumberController
      */
     public function getMyList(int $page = 1, int $size = 10): array
     {
-        return Number::where(['uid' => context()->get('userId'),'softDelete'=>0])
+        return Number::where(['uid' => context()->get('userId'),'soft_delete'=>0])
             ->orderByDesc('id')
             ->paginate($page, $size);
     }
@@ -73,7 +74,7 @@ class NumberController
      */
     public function getWhichIInList(int $page = 1, int $size = 10): array
     {
-        return NumberRow::where(['number_row.uid' => context()->get('userId'),'number.softDelete'=>0])
+        return NumberRow::where(['number_row.uid' => context()->get('userId'),'number.soft_delete'=>0])
             ->leftJoin('number', 'number.id', '=', 'number_row.number_id')
             ->select('number.*', 'is_called','number_row.create_time as join_time')
             ->orderByDesc('number_row.create_time')
