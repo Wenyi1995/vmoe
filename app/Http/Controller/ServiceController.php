@@ -97,6 +97,7 @@ class ServiceController
     public function getList(int $page = 1, int $size = 10): Response
     {
         $list = Service::where('soft_delete', 0)
+            ->orderByDesc('id')
             ->paginate($page, $size,
                 ['id', 'uid', 'title', 'service_type', 'type', 'start_time', 'end_time', 'low_price', 'high_price']);
         return context()->getResponse()->withData($list);
@@ -112,6 +113,7 @@ class ServiceController
     public function getMyList(int $page = 1, int $size = 10): Response
     {
         $list = Service::where(['soft_delete' => 0, 'uid' => context()->get('userId')])
+            ->orderByDesc('id')
             ->paginate($page, $size,
                 ['id', 'uid', 'title', 'service_type', 'type', 'start_time', 'end_time', 'low_price', 'high_price']);
         return context()->getResponse()->withData($list);
