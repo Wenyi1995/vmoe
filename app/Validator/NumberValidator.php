@@ -3,6 +3,7 @@
 namespace App\Validator;
 
 use Swoft\Validator\Annotation\Mapping\IsString;
+use Swoft\Validator\Annotation\Mapping\IsInt;
 use Swoft\Validator\Annotation\Mapping\Required;
 use Swoft\Validator\Annotation\Mapping\NotEmpty;
 use Swoft\Validator\Annotation\Mapping\Validator;
@@ -26,7 +27,7 @@ class NumberValidator
     protected $title;
 
     /**
-     * @IsString()
+     * @IsInt()
      * @NotEmpty()
      * @Required()
      * @var int

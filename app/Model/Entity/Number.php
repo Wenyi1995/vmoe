@@ -63,7 +63,7 @@ class Number extends Model
     private $title;
 
     /**
-     * 服务表id
+     * 开始时间
      *
      * @Column(name="start_time", prop="startTime")
      *
