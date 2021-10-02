@@ -53,7 +53,9 @@ class ServiceController
         $serviceInfo = Service::whereKey($id)->where('soft_delete', 0)->first(['uid']);
         if ($serviceInfo) {
             if ($serviceInfo['uid'] == context()->get('userId')) {
-                $serviceInfo->fill($request->getParsedBody())->save();
+                $update = $request->getParsedBody();
+                $update['id'] = $id;
+                $serviceInfo->fill($update)->save();
                 return context()->getResponse()->withContent('success');
             } else {
                 return context()->getResponse()->withStatus(403)->withContent('无权操作');
@@ -71,7 +73,7 @@ class ServiceController
      */
     public function delService(int $id): Response
     {
-        $serviceInfo = Service::whereKey($id)->where('soft_delete', 0)->first(['id','uid']);
+        $serviceInfo = Service::whereKey($id)->where('soft_delete', 0)->first(['id', 'uid']);
         if ($serviceInfo) {
             if ($serviceInfo['uid'] == context()->get('userId')) {
                 $serviceInfo->setSoftDelete(1)->save();
@@ -196,7 +198,7 @@ class ServiceController
     {
         $uid = context()->get('userId');
         $e = Collect::where(['service_id' => $service_id, 'uid' => $uid])->exists();
-        return context()->getResponse()->withData(['is_collect'=>$e]);
+        return context()->getResponse()->withData(['is_collect' => $e]);
     }
 
 
